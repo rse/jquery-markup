@@ -1,8 +1,15 @@
 
-jQuery-Markup
+jQuery Markup
 =============
 
 (jQuery Template Based Markup Generation)
+
+Abstract
+--------
+
+jQuery Markup is a [jQuery](http://jquery.com/) plugin for assembling,
+pre-compiling, expanding and then DOM-injecting HTML markup code
+fragments based on plain HTML or an arbitrary template language.
 
 Motivation
 ----------
