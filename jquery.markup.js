@@ -191,7 +191,7 @@
     });
 
     /*  helper function for checking that a function is available  */
-    $.markup.isfn = function (path) {
+    var isfn = function (path) {
         var p = path.split(/\./);
         var o = window;
         for (var i = 0; i < p.length; i++) {
@@ -217,7 +217,7 @@
         id:        "handlebars",
         name:      "Handlebars",
         url:       "http://handlebarsjs.com/",
-        available: function ()    { return $.markup.isfn("Handlebars.compile"); },
+        available: function ()    { return isfn("Handlebars.compile"); },
         compile:   function (txt) { return Handlebars.compile(txt); }
     });
 
@@ -226,7 +226,7 @@
         id:        "dust",
         name:      "DUST",
         url:       "http://akdubya.github.io/dustjs/",
-        available: function ()    { return $.markup.isfn("dust.compile"); },
+        available: function ()    { return isfn("dust.compile"); },
         compile:   function (txt) { return dust.compile(txt); }
     });
 
@@ -235,7 +235,7 @@
         id:        "jade",
         name:      "Jade",
         url:       "http://jade-lang.com/",
-        available: function ()    { return $.markup.isfn("jade.compile"); },
+        available: function ()    { return isfn("jade.compile"); },
         compile:   function (txt) { return jade.compile(txt); }
     });
 
@@ -244,7 +244,7 @@
         id:        "mustache",
         name:      "Mustache",
         url:       "http://mustache.github.io/",
-        available: function ()    { return $.markup.isfn("Mustache.compile"); },
+        available: function ()    { return isfn("Mustache.compile"); },
         compile:   function (txt) { return Mustache.compile(txt); }
     });
 
@@ -253,7 +253,7 @@
         id:        "markup",
         name:      "Markup.js",
         url:       "https://github.com/adammark/Markup.js/",
-        available: function ()    { return $.markup.isfn("Mark.up"); },
+        available: function ()    { return isfn("Mark.up"); },
         compile:   function (txt) { return function (data) { return Mark.up(txt, data) }; }
     });
 
@@ -262,7 +262,7 @@
         id:        "markup",
         name:      "Markup.js",
         url:       "http://emmet.io/",
-        available: function ()    { return $.markup.isfn("emmet.expandAbbreviation"); },
+        available: function ()    { return isfn("emmet.expandAbbreviation"); },
         compile:   function (txt) { return function (data) { return emmet.expandAbbreviation(txt) }; }
     });
 
