@@ -35,7 +35,7 @@
                 var el = $.markup(id, data);
                 $(this).append(el);
                 result = el;
-            })
+            });
             return result;
         }
     });
@@ -209,7 +209,7 @@
         name:      "Plain HTML",
         url:       "-",
         available: function ()    { return true; },
-        compile:   function (txt) { return function (data) { return txt; }; }
+        compile:   function (txt) { return function (/* data */) { return txt; }; }
     });
 
     /*  Handlebars (efficient: pre-compilation, complete: data support)  */
@@ -254,7 +254,7 @@
         name:      "Markup.js",
         url:       "https://github.com/adammark/Markup.js/",
         available: function ()    { return isfn("Mark.up"); },
-        compile:   function (txt) { return function (data) { return Mark.up(txt, data) }; }
+        compile:   function (txt) { return function (data) { return Mark.up(txt, data); }; }
     });
 
     /*  Emmet markup (inefficient: on-the-fly compilation, incomplete: no data support)  */
@@ -263,7 +263,7 @@
         name:      "Markup.js",
         url:       "http://emmet.io/",
         available: function ()    { return isfn("emmet.expandAbbreviation"); },
-        compile:   function (txt) { return function (data) { return emmet.expandAbbreviation(txt) }; }
+        compile:   function (txt) { return function (/* data */) { return emmet.expandAbbreviation(txt); }; }
     });
 
 })(jQuery);
