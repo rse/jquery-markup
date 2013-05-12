@@ -22,7 +22,113 @@ into the DOM.
 Solution
 --------
 
-FIXME
+First, HTML markup is linked to the SPA like CSS stylesheets,
+but instead of a `rel` of `stylesheet`, the name `markup` is used.
+The `type` of `text/x-markup-xxx` is used to tell jQuery.Markup about the default type
+`xxx` (the type can be overwritten):
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+            [...]
+            <script src="app.js" type="text/javascript"></script>
+            <link href="app.css" rel="stylesheet" type="text/css"/>
+            <link href="app.html" rel="markup" type="text/x-markup-handlebars"/>
+            [...]
+        </head>
+       [...]
+    </html>
+
+Second, a markup template is a regular HTML/XHTML file, but with one or more
+`<markup>` tags at the top-level and with optionally at a deeper nested level:
+
+    <!-- container markup template -->
+    <markup id="hello">
+       <div class="hello">
+           Welcome:<br/>
+           <!-- embedded message markup template -->
+           <markup id="message">
+               <div class="message row-{{k}}">{{i}}. {{message}}</div>
+           </markup>
+       </div>
+    </markup>
+
+    <!-- some other template -->
+    <markup id="foo">
+       <div class="foo">{{foo}}</div>
+    </markup>
+
+Third, in your application give jQuery.Markup a chance to load the markup template
+files and tell you once it finished this step:
+
+    $(document).ready(function () {
+        $.markup.load(function () {
+            /* ...start your SPA code here... */
+        });
+    });
+
+Finally, render some markup into the DOM:
+
+    /*  render a "hello" container markup  */
+    var h = $("body").markup("hello");
+
+    /*  insert ten message markups  */
+    for (var i = 0; i < 10; i++) {
+        $(h).markup("hello/message", {
+            i: i, k: i % 2,
+            message: "Hello World"
+        });
+    }
+
+The resulting DOM fragment will be:
+
+    <body>
+       [...]
+       <div class="hello">
+           Welcome:<br/>
+           <div class="message row-0">0. Hello World</div>
+           <div class="message row-1">1. Hello World</div>
+           <div class="message row-0">2. Hello World</div>
+           <div class="message row-1">3. Hello World</div>
+           <div class="message row-0">4. Hello World</div>
+           <div class="message row-1">5. Hello World</div>
+           <div class="message row-0">6. Hello World</div>
+           <div class="message row-1">7. Hello World</div>
+           <div class="message row-0">8. Hello World</div>
+           <div class="message row-1">9. Hello World</div>
+       </div>
+       [...]
+    </body>
+
+API
+---
+
+    /*  global version number  */
+    $.markup.version: Float
+
+    /*  global debug level  */
+    $.markup.debug: Number
+
+    /*  register a check for function existence  */
+    $.markup.register({
+        id: String,
+        name: String,
+        url: String,
+        available: () => Boolean,
+        compile: (txt: String) => ((data: Object) => String)
+    }): Void
+
+    /*  manually queue the loading of particular template file  */
+    $.markup.queue(url: String, type: String): Void
+
+    /*  load all queued template files  */
+    $.markup.load(onDone: () => Void)
+
+    /*  render a particular markup template (DOM unattached)  */
+    $.markup(id: String[, data: Object]): jQuery
+
+    /*  render a particular markup template (DOM attached)  */
+    $([...]).markup(id: String[, data: Object]): jQuery
 
 Template Engine Support
 -----------------------
@@ -44,7 +150,8 @@ For supporting an additional template engine use a construct like the following:
         id:        "handlebars",
         name:      "Handlebars",
         url:       "http://handlebarsjs.com/",
-        available: function ()    { return $.markup.isfn("Handlebars.compile"); },
+        available: function ()    { return typeof Handlebars !== "undefined" &&
+                                           typeof Handlebars.compile === "function"; },
         compile:   function (txt) { return Handlebars.compile(txt); }
     });
 
