@@ -1,7 +1,7 @@
 /*
 **  jquery.markup.js -- jQuery Template Based Markup Generation
 **  Copyright (c) 2013 Ralf S. Engelschall <rse@engelschall.com>
-**  
+**
 **  Permission is hereby granted, free of charge, to any person obtaining
 **  a copy of this software and associated documentation files (the
 **  "Software"), to deal in the Software without restriction, including
@@ -9,10 +9,10 @@
 **  distribute, sublicense, and/or sell copies of the Software, and to
 **  permit persons to whom the Software is furnished to do so, subject to
 **  the following conditions:
-**  
+**
 **  The above copyright notice and this permission notice shall be included
 **  in all copies or substantial portions of the Software.
-**  
+**
 **  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 **  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 **  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -53,13 +53,23 @@
     /*  debug level  */
     $.markup.debug = 0;
     var debug = function (level, msg) {
-        if (   $.markup.debug >= level 
+        if (   $.markup.debug >= level
             && typeof console !== "undefined"
             && typeof console.log === "function")
             console.log("jquery: markup: DEBUG[" + level + "]: " + msg);
     };
     var esctxt = function (txt) {
-        return "\"" + txt.replace(/\r/g, "\\r").replace(/\n/g, "\\n").replace(/"/g, "\\\"") + "\"";
+        return "\"" +
+            txt.replace(/\r/g, "\\r")
+            .replace(/\n/g, "\\n")
+            .replace(/"/g, "\\\"") +
+        "\"";
+    };
+
+    /*  template language registry  */
+    var registry = {};
+    $.markup.register = function (lang) {
+        registry[lang.id] = lang;
     };
 
     /*  compile a markup into an expansion function  */
@@ -67,66 +77,13 @@
         debug(1, "compile: type=" + type + " id=" + id);
         debug(4, "compile: txt=" + esctxt(txt));
 
-        /*  plain-text markup (efficient: pass-through)  */
-        if (type === "plain")
-            markup[id] = function (data) { return txt; };
-
-        /*  Handlebars markup (efficient: pre-compilation)
-            (http://handlebarsjs.com/)  */
-        else if (type === "handlebars") {
-            if (!(   typeof Handlebars !== "undefined"
-                  && typeof Handlebars.compile === "function"))
-                throw new Error("jquery: markup: ERROR: Handlebars not found");
-            markup[id] = Handlebars.compile(txt);
-        }
-
-        /*  DUST markup (efficient: pre-compilation)
-            (http://akdubya.github.io/dustjs/)  */
-        else if (type === "dust") {
-            if (!(   typeof dust !== "undefined"
-                  && typeof dust.compile === "function"))
-                throw new Error("jquery: markup: ERROR: DUST not found");
-            markup[id] = dust.compile(txt);
-        }
-
-        /*  Jade markup (efficient: pre-compilation)
-            (http://jade-lang.com/)  */
-        else if (type === "jade") {
-            if (!(   typeof jade !== "undefined"
-                  && typeof jade.compile === "function"))
-                throw new Error("jquery: markup: ERROR: Jade not found");
-            markup[id] = jade.compile(txt);
-        }
-
-        /*  Mustache markup (efficient: pre-compilation)
-            (http://mustache.github.io/)  */
-        else if (type === "mustache") {
-            if (!(   typeof Mustache !== "undefined"
-                  && typeof Mustache.compile === "function"))
-                throw new Error("jquery: markup: ERROR: Mustache not found");
-            markup[id] = Mustache.compile(txt);
-        }
-
-        /*  Markup markup (inefficient: on-the-fly compilation)
-            (https://github.com/adammark/Markup.js/)  */
-        else if (type === "markup") {
-            if (!(   typeof Mark !== "undefined"
-                  && typeof Mark.up === "function"))
-                throw new Error("jquery: markup: ERROR: Markup not found");
-            markup[id] = function (data) { return Mark.up(txt, data) };
-        }
-
-        /*  Emmet markup (inefficient: on-the-fly compilation)
-            (http://emmet.io)  */
-        else if (type === "emmet") {
-            if (!(   typeof emmet !== "undefined"
-                  && typeof emmet.expandAbbreviation === "function"))
-                throw new Error("jquery: markup: ERROR: Emmet not found");
-            markup[id] = function (data) { return emmet.expandAbbreviation(txt) };
-        }
-
-        else
-            throw new Error("jquery: markup: ERROR: unknown markup type '" + type + "'");
+        if (typeof registry[type] === "undefined")
+            throw new Error("jquery: markup: ERROR: no template language registered under id '" + type + "'");
+        if (!registry[type].available())
+            throw new Error("jquery: markup: ERROR: template language '" +
+                type + "' (" + registry[type].name + ", " + registry[type].url + ") " +
+                "known but not found under run-time");
+        markup[id] = registry[type].compile(txt);
     };
 
     /*  parse a markup definition document  */
@@ -231,6 +188,82 @@
                 }
             }
         });
+    });
+
+    /*  helper function for checking that a function is available  */
+    $.markup.isfn = function (path) {
+        var p = path.split(/\./);
+        var o = window;
+        for (var i = 0; i < p.length; i++) {
+            o = o[p[i]];
+            if (   (i <   p.length - 1 && typeof o === "undefined")
+                || (i === p.length - 1 && typeof o !== "function" ))
+                return false;
+        }
+        return true;
+    };
+
+    /*  Plain HTML (efficient: pass-through only, incomplete: no data)  */
+    $.markup.register({
+        id:        "plain",
+        name:      "Plain HTML",
+        url:       "-",
+        available: function ()    { return true; },
+        compile:   function (txt) { return function (data) { return txt; }; }
+    });
+
+    /*  Handlebars (efficient: pre-compilation, complete: data support)  */
+    $.markup.register({
+        id:        "handlebars",
+        name:      "Handlebars",
+        url:       "http://handlebarsjs.com/",
+        available: function ()    { return $.markup.isfn("Handlebars.compile"); },
+        compile:   function (txt) { return Handlebars.compile(txt); }
+    });
+
+    /*  DUST (efficient: pre-compilation, complete: data support)  */
+    $.markup.register({
+        id:        "dust",
+        name:      "DUST",
+        url:       "http://akdubya.github.io/dustjs/",
+        available: function ()    { return $.markup.isfn("dust.compile"); },
+        compile:   function (txt) { return dust.compile(txt); }
+    });
+
+    /*  Jade (efficient: pre-compilation, complete: data support)  */
+    $.markup.register({
+        id:        "jade",
+        name:      "Jade",
+        url:       "http://jade-lang.com/",
+        available: function ()    { return $.markup.isfn("jade.compile"); },
+        compile:   function (txt) { return jade.compile(txt); }
+    });
+
+    /*  Mustache (efficient: pre-compilation, complete: data support)  */
+    $.markup.register({
+        id:        "mustache",
+        name:      "Mustache",
+        url:       "http://mustache.github.io/",
+        available: function ()    { return $.markup.isfn("Mustache.compile"); },
+        compile:   function (txt) { return Mustache.compile(txt); }
+    });
+
+    /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
+    $.markup.register({
+        id:        "markup",
+        name:      "Markup.js",
+        url:       "https://github.com/adammark/Markup.js/",
+        available: function ()    { return $.markup.isfn("Mark.up"); },
+        compile:   function (txt) { return function (data) { return Mark.up(txt, data) }; }
+    });
+
+    /*  Emmet markup (inefficient: on-the-fly compilation, incomplete: no data support)  */
+    $.markup.register({
+        id:        "markup",
+        name:      "Markup.js",
+        url:       "http://emmet.io/",
+        available: function ()    { return $.markup.isfn("emmet.expandAbbreviation"); },
+        compile:   function (txt) { return function (data) { return emmet.expandAbbreviation(txt) }; }
     });
 
 })(jQuery);

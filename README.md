@@ -24,10 +24,34 @@ Solution
 
 FIXME
 
+Template Engine Support
+-----------------------
+
+The following HTML template languages and corresponding
+expansion engines are supported out-of-the-box:
+
+- `plain`: Plain-Text markup (efficient: pass-through)
+- `handlebars`: [Handlebars](http://handlebarsjs.com/) (efficient: pre-compilation)
+- `dust`: [DUST](http://akdubya.github.io/dustjs/) (efficient: pre-compilation)
+- `jade`: [Jade](http://jade-lang.com/) (efficient: pre-compilation)
+- `mustache`: [Mustache](http://mustache.github.io/) (efficient: pre-compilation)
+- `markup`: [Markup](https://github.com/adammark/Markup.js/) (inefficient: on-the-fly compilation)
+- `emmet`: [Emmet](http://emmet.io) (inefficient: on-the-fly compilation)
+
+For supporting an additional template engine use a construct like the following:
+
+    $.markup.register({
+        id:        "handlebars",
+        name:      "Handlebars",
+        url:       "http://handlebarsjs.com/",
+        available: function ()    { return $.markup.isfn("Handlebars.compile"); },
+        compile:   function (txt) { return Handlebars.compile(txt); }
+    });
+
 License
 -------
 
-Copyright (c) 2013 Ralf S. Engelschall <rse@engelschall.com>
+Copyright (c) 2013 Ralf S. Engelschall (http://engelschall.com/)
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
