@@ -48,7 +48,7 @@
     };
 
     /*  plugin version number  */
-    $.markup.version = "1.0.0";
+    $.markup.version = "1.0.1";
 
     /*  debug level  */
     $.markup.debug = 0;
@@ -246,6 +246,15 @@
         url:       "http://mustache.github.io/",
         available: function ()    { return isfn("Mustache.compile"); },
         compile:   function (txt) { return Mustache.compile(txt); }
+    });
+
+    /*  HAML-JS (efficient: pre-compilation, complete: data support)  */
+    $.markup.register({
+        id:        "haml",
+        name:      "HAML-JS",
+        url:       "https://github.com/creationix/haml-js",
+        available: function ()    { return isfn("Haml"); },
+        compile:   function (txt) { return Haml(txt); }
     });
 
     /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
