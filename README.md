@@ -171,6 +171,8 @@ expansion engines are supported out-of-the-box:
 - `dust`: [DUST](http://akdubya.github.io/dustjs/) (efficient: pre-compilation)
 - `jade`: [Jade](http://jade-lang.com/) (efficient: pre-compilation)
 - `mustache`: [Mustache](http://mustache.github.io/) (efficient: pre-compilation)
+- `haml`: [HAML-JS](https://github.com/creationix/haml-js) (efficient: pre-compilation)
+- `underscore`: [Underscore](http://underscorejs.org/) (efficient: pre-compilation)
 - `markup`: [Markup](https://github.com/adammark/Markup.js/) (inefficient: on-the-fly compilation)
 - `emmet`: [Emmet](http://emmet.io) (inefficient: on-the-fly compilation)
 
