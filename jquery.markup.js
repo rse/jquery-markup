@@ -48,7 +48,7 @@
     };
 
     /*  plugin version number  */
-    $.markup.version = "1.0.1";
+    $.markup.version = "1.0.2";
 
     /*  debug level  */
     $.markup.debug = 0;
@@ -255,6 +255,15 @@
         url:       "https://github.com/creationix/haml-js",
         available: function ()    { return isfn("Haml"); },
         compile:   function (txt) { return Haml(txt); }
+    });
+
+    /*  Underscore Template (efficient: pre-compilation, complete: data support)  */
+    $.markup.register({
+        id:        "underscore",
+        name:      "Underscore Template",
+        url:       "http://underscorejs.org/",
+        available: function ()    { return isfn("_.template"); },
+        compile:   function (txt) { return _.template(txt); }
     });
 
     /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
