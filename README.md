@@ -1,6 +1,8 @@
 
-jQuery-Markup: jQuery Template Based Markup Generation
-======================================================
+jQuery-Markup
+=============
+
+(jQuery Template Based Markup Generation)
 
 FIXME
 
