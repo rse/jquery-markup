@@ -17,14 +17,15 @@ so-called HTML template languages exist. They allow you to describe the
 markup in more concise and partially dynamic language and render the
 static plain HTML markup on-the-fly. But a handy solution is needed to
 on-the-fly pick up particular templates, render them and inject them
-into the DOM. This is where jQuery.Markup comes into the game.
+into the DOM. This is where jQuery.Markup comes into the play.
 
 Solution
 --------
 
-First, the HTML markup is linked to the SPA with `<link>` tags similar to CSS stylesheets,
-but instead of a `rel` attribute with value `stylesheet`, the value `markup` is used.
-The attribute `type` is set to `text/x-markup-xxx` to tell jQuery.Markup about the default template
+First, the HTML markup is linked to the SPA with `<link>` tags similar
+to CSS stylesheets, but instead of a `rel` attribute with value
+`stylesheet`, the value `markup` is used. The attribute `type` is set
+to `text/x-markup-xxx` to tell jQuery.Markup about the default template
 language (`xxx`):
 
     <!DOCTYPE html>
@@ -104,7 +105,8 @@ In this example, the resulting DOM fragment will be:
 API
 ---
 
-The Application Programming Interface (API) of jQuery.Markup is:
+The Application Programming Interface (API) of jQuery.Markup is
+(in concise TypeScript definition syntax):
 
     /*  global version number  */
     $.markup.version: Float
