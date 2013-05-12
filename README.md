@@ -17,15 +17,15 @@ so-called HTML template languages exist. They allow you to describe the
 markup in more concise and partially dynamic language and render the
 static plain HTML markup on-the-fly. But a handy solution is needed to
 on-the-fly pick up particular templates, render them and inject them
-into the DOM.
+into the DOM. This is where jQuery.Markup comes into the game.
 
 Solution
 --------
 
-First, HTML markup is linked to the SPA like CSS stylesheets,
-but instead of a `rel` of `stylesheet`, the name `markup` is used.
-The `type` of `text/x-markup-xxx` is used to tell jQuery.Markup about the default type
-`xxx` (the type can be overwritten):
+First, the HTML markup is linked to the SPA with `<link>` tags similar to CSS stylesheets,
+but instead of a `rel` attribute with value `stylesheet`, the value `markup` is used.
+The attribute `type` is set to `text/x-markup-xxx` to tell jQuery.Markup about the default template
+language (`xxx`):
 
     <!DOCTYPE html>
     <html>
@@ -40,7 +40,7 @@ The `type` of `text/x-markup-xxx` is used to tell jQuery.Markup about the defaul
     </html>
 
 Second, a markup template is a regular HTML/XHTML file, but with one or more
-`<markup>` tags at the top-level and with optionally at a deeper nested level:
+`<markup>` tags at the top-level (and optionally also at a deeper nested level):
 
     <!-- container markup template -->
     <markup id="hello">
@@ -58,8 +58,9 @@ Second, a markup template is a regular HTML/XHTML file, but with one or more
        <div class="foo">{{foo}}</div>
     </markup>
 
-Third, in your application give jQuery.Markup a chance to load the markup template
-files and tell you once it finished this step:
+Third, in your application give jQuery.Markup a chance to load the
+markup template files, parse and compile the contained `<markup>`
+sections and tell you once it finished this step:
 
     $(document).ready(function () {
         $.markup.load(function () {
@@ -67,7 +68,7 @@ files and tell you once it finished this step:
         });
     });
 
-Finally, render some markup into the DOM:
+Finally, render some markup into the DOM through the pre-compiled and stored markup templates:
 
     /*  render a "hello" container markup  */
     var h = $("body").markup("hello");
@@ -80,7 +81,7 @@ Finally, render some markup into the DOM:
         });
     }
 
-The resulting DOM fragment will be:
+In this example, the resulting DOM fragment will be:
 
     <body>
        [...]
@@ -102,6 +103,8 @@ The resulting DOM fragment will be:
 
 API
 ---
+
+The Application Programming Interface (API) of jQuery.Markup is:
 
     /*  global version number  */
     $.markup.version: Float
@@ -129,6 +132,24 @@ API
 
     /*  render a particular markup template (DOM attached)  */
     $([...]).markup(id: String[, data: Object]): jQuery
+
+API
+---
+
+The template files can contain arbitrary HTML/XHTML markup, just surrounded
+with `<markup>` tags. Those tags have the following syntax:
+
+    <markup id="ID" [type="TYPE"] [include="true|false"]>
+        [...]
+    </markup>
+
+The `id` attribute has to be globally unique for top-level tags and
+locally unique for nested tags. The `type` attribute can be any
+registered name of a template language (see below for pre-registered
+ones). The `include` attribute can be set to `true` for nested tags
+in order to allow their content to be included into the parent tag
+(by default nested tags are treated as they would be located at the
+top-level and are just nested for logical reasons only).
 
 Template Engine Support
 -----------------------
