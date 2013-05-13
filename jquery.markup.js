@@ -221,6 +221,15 @@
         compile:   function (txt) { return Handlebars.compile(txt); }
     });
 
+    /*  Emblem (indented Handlebars) (efficient: pre-compilation, complete: data support)  */
+    $.markup.register({
+        id:        "emblem",
+        name:      "Emblem",
+        url:       "http://emblemjs.com/",
+        available: function ()    { return isfn("Handlebars") && isfn("Emblem.compile"); },
+        compile:   function (txt) { return Emblem.compile(Handlebars, txt); }
+    });
+
     /*  DUST (efficient: pre-compilation, complete: data support)  */
     $.markup.register({
         id:        "dust",
