@@ -168,6 +168,7 @@ expansion engines are supported out-of-the-box:
 
 - `plain`: Plain-Text markup (efficient: pass-through)
 - `handlebars`: [Handlebars](http://handlebarsjs.com/) (efficient: pre-compilation)
+- `emblem`: [Emblem](http://emblemjs.com/) (efficient: pre-compilation)
 - `dust`: [DUST](http://akdubya.github.io/dustjs/) (efficient: pre-compilation)
 - `jade`: [Jade](http://jade-lang.com/) (efficient: pre-compilation)
 - `mustache`: [Mustache](http://mustache.github.io/) (efficient: pre-compilation)
