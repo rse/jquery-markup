@@ -142,8 +142,8 @@ The Application Programming Interface (API) of jQuery.Markup is
     /*  render a particular markup template (DOM attached)  */
     $([...]).markup(id: String[, data: Object]): jQuery
 
-API
----
+Templates
+---------
 
 The template files can contain arbitrary HTML/XHTML markup, just surrounded
 with `<markup>` tags. Those tags have the following syntax:
@@ -195,17 +195,17 @@ You can pick the jQuery plugin in file "jquery.markup.js" as is for use,
 but for linting and minifying it yourself you need Node.js ("node") and
 its Node.js Package Manager ("npm") globally installed.
 
-\# approach 1: use convenient Makefile (author preference)
-$ make
+    # approach 1: use convenient Makefile (author preference)
+    $ make
 
-\# approach 2: use Grunt locally (contributor recommendation)
-$ npm install
-$ node\_modules/grunt-cli/bin/grunt
+    # approach 2: use Grunt locally (contributor recommendation)
+    $ npm install
+    $ node\_modules/grunt-cli/bin/grunt
 
-\# approach 3: install and use Grunt globally (contributor alternative)
-$ npm install -g grunt-cli
-$ npm install
-$ grunt
+    # approach 3: install and use Grunt globally (contributor alternative)
+    $ npm install -g grunt-cli
+    $ npm install
+    $ grunt
 
 License
 -------
