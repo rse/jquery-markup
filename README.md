@@ -188,6 +188,25 @@ For supporting an additional template engine use a construct like the following:
         compile:   function (txt) { return Handlebars.compile(txt); }
     });
 
+Building jQuery-Markup
+----------------------
+
+You can pick the jQuery plugin in file "jquery.markup.js" as is for use,
+but for linting and minifying it yourself you need Node.js ("node") and
+its Node.js Package Manager ("npm") globally installed.
+
+\# approach 1: use convenient Makefile (author preference)
+$ make
+
+\# approach 2: use Grunt locally (contributor recommendation)
+$ npm install
+$ node\_modules/grunt-cli/bin/grunt
+
+\# approach 3: install and use Grunt globally (contributor alternative)
+$ npm install -g grunt-cli
+$ npm install
+$ grunt
+
 License
 -------
 
