@@ -200,7 +200,7 @@ its Node.js Package Manager ("npm") globally installed.
 
     # approach 2: use Grunt locally (contributor recommendation)
     $ npm install
-    $ node\_modules/grunt-cli/bin/grunt
+    $ node_modules/grunt-cli/bin/grunt
 
     # approach 3: install and use Grunt globally (contributor alternative)
     $ npm install -g grunt-cli
