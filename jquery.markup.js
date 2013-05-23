@@ -80,12 +80,19 @@
         debug(1, "compile: type=" + type + " id=" + id);
         debug(4, "compile: txt=" + esctxt(txt));
 
+        /*  sanity check usage  */
         if (typeof registry[type] === "undefined")
             throw new Error("jquery: markup: ERROR: no template language registered under id '" + type + "'");
         if (!registry[type].available())
             throw new Error("jquery: markup: ERROR: template language '" +
                 type + "' (" + registry[type].name + ", " + registry[type].url + ") " +
                 "known but not found under run-time");
+
+        /*  remove all leading and trailing whitespaces
+            (as usually one wants a single DOM element back without any surrounding text elements!)  */
+        txt = txt.replace(/^\s+/, "").replace(/\s+$/, "");
+
+        /*  compile with registered template engine  */
         markup[id] = registry[type].compile(txt);
     };
 
