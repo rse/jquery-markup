@@ -177,6 +177,7 @@ expansion engines are supported out-of-the-box:
 - `hogan`: [Twitter Hogan](http://twitter.github.io/hogan.js/) (efficient: pre-compilation)
 - `underscore`: [Underscore](http://underscorejs.org/) (efficient: pre-compilation)
 - `markup`: [Markup](https://github.com/adammark/Markup.js/) (inefficient: on-the-fly compilation)
+- `plates`: [Plates](https://github.com/flatiron/plates) (inefficient: on-the-fly compilation)
 - `emmet`: [Emmet](http://emmet.io) (inefficient: on-the-fly compilation)
 
 For supporting an additional template engine use a construct like the following:

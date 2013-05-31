@@ -315,6 +315,15 @@
         compile:   function (txt) { return function (data) { /* global Mark: true */ return Mark.up(txt, data); }; }
     });
 
+    /*  Plates (inefficient: on-the-fly compilation, complete: data support)  */
+    $.markup.register({
+        id:        "plates",
+        name:      "Plates",
+        url:       "https://github.com/flatiron/plates",
+        available: function ()    { return isfn("Plates.bind"); },
+        compile:   function (txt) { return function (data) { /* global Plates: true */ return Plates.bind(txt, data); }; }
+    });
+
     /*  Emmet markup (inefficient: on-the-fly compilation, incomplete: no data support)  */
     $.markup.register({
         id:        "markup",
