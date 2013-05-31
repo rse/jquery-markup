@@ -278,6 +278,15 @@
         compile:   function (txt) { /* global Haml: true */ return Haml(txt); }
     });
 
+    /*  doT (efficient: pre-compilation, complete: data support)  */
+    $.markup.register({
+        id:        "dot",
+        name:      "doT",
+        url:       "http://olado.github.io/doT/",
+        available: function ()    { return isfn("doT.template"); },
+        compile:   function (txt) { /* global doT: true */ return doT.template(txt); }
+    });
+
     /*  Underscore Template (efficient: pre-compilation, complete: data support)  */
     $.markup.register({
         id:        "underscore",
