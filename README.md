@@ -191,6 +191,9 @@ For supporting an additional template engine use a construct like the following:
         compile:   function (txt) { return Handlebars.compile(txt); }
     });
 
+Check out [Template-Engine-Chooser](http://garann.github.io/template-chooser/)
+to quickly find out which template language fits best for your scenario.
+
 Building jQuery-Markup
 ----------------------
 
