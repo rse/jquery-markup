@@ -287,6 +287,16 @@
         compile:   function (txt) { /* global doT: true */ return doT.template(txt); }
     });
 
+    /*  Hogan (efficient: pre-compilation, complete: data support)  */
+    $.markup.register({
+        id:        "hogan",
+        name:      "Twitter Hogan",
+        url:       "http://twitter.github.io/hogan.js/",
+        available: function ()    { return isfn("hogan.compile"); },
+        compile:   function (txt) { /* global hogan: true */ var tmpl = hogan.compile(txt);
+                                    return function (data) { return tmpl.render(data); }; }
+    });
+
     /*  Underscore Template (efficient: pre-compilation, complete: data support)  */
     $.markup.register({
         id:        "underscore",
