@@ -306,6 +306,15 @@
         compile:   function (txt) { /* global _: true */ return _.template(txt); }
     });
 
+    /*  Qatrix Template (efficient: cached on-the-fly compilation, complete: data support)  */
+    $.markup.register({
+        id:        "qatrix",
+        name:      "Qatrix Template",
+        url:       "http://qatrix.com/",
+        available: function ()    { return isfn("Qatrix.$template"); },
+        compile:   function (txt) { return function (data) { /* global Qatrix: true */ return Qatrix.template(txt, data); }; }
+    });
+
     /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
     $.markup.register({
         id:        "markup",

@@ -176,6 +176,7 @@ expansion engines are supported out-of-the-box:
 - `dot`: [doT](http://olado.github.io/doT/) (efficient: pre-compilation)
 - `hogan`: [Twitter Hogan](http://twitter.github.io/hogan.js/) (efficient: pre-compilation)
 - `underscore`: [Underscore](http://underscorejs.org/) (efficient: pre-compilation)
+- `qatrix`: [Qatrix Template](http://qatrix.com/) (efficient: cached on-the-fly compilation)
 - `markup`: [Markup](https://github.com/adammark/Markup.js/) (inefficient: on-the-fly compilation)
 - `plates`: [Plates](https://github.com/flatiron/plates) (inefficient: on-the-fly compilation)
 - `emmet`: [Emmet](http://emmet.io) (inefficient: on-the-fly compilation)
