@@ -215,132 +215,73 @@
         return true;
     };
 
+    /*  helper function for registering a template engine  */
+    var reg = function (id, name, url, func, comp) {
+        $.markup.register({
+            id: id,
+            name: name,
+            url: url,
+            available: (typeof func === "function" ? func : function () { return isfn(func); }),
+            compile: comp
+        });
+    };
+
     /*  Plain HTML (efficient: pass-through only, incomplete: no data)  */
-    $.markup.register({
-        id:        "plain",
-        name:      "Plain HTML",
-        url:       "-",
-        available: function ()    { return true; },
-        compile:   function (txt) { return function (/* data */) { return txt; }; }
-    });
+    reg("plain", "Plain HTML", "-", function () { return true; },
+        function (txt) { return function (/* data */) { return txt; }; });
 
     /*  Handlebars (efficient: pre-compilation, complete: data support)  */
-    $.markup.register({
-        id:        "handlebars",
-        name:      "Handlebars",
-        url:       "http://handlebarsjs.com/",
-        available: function ()    { return isfn("Handlebars.compile"); },
-        compile:   function (txt) { /* global Handlebars: true */ return Handlebars.compile(txt); }
-    });
+    reg("handlebars", "Handlebars", "http://handlebarsjs.com/", "Handlebars.compile",
+        function (txt) { /* global Handlebars: true */ return Handlebars.compile(txt); });
 
     /*  Emblem (indented Handlebars) (efficient: pre-compilation, complete: data support)  */
-    $.markup.register({
-        id:        "emblem",
-        name:      "Emblem",
-        url:       "http://emblemjs.com/",
-        available: function ()    { return isfn("Handlebars") && isfn("Emblem.compile"); },
-        compile:   function (txt) { /* global Emblem: true */ return Emblem.compile(Handlebars, txt); }
-    });
+    reg("emblem", "Emblem", "http://emblemjs.com/", function () { return isfn("Handlebars") && isfn("Emblem.compile"); },
+        function (txt) { /* global Emblem: true */ return Emblem.compile(Handlebars, txt); });
 
     /*  DUST (efficient: pre-compilation, complete: data support)  */
-    $.markup.register({
-        id:        "dust",
-        name:      "DUST",
-        url:       "http://akdubya.github.io/dustjs/",
-        available: function ()    { return isfn("dust.compile"); },
-        compile:   function (txt) { /* global dust: true */ return dust.compile(txt); }
-    });
+    reg("dust", "DUST", "http://akdubya.github.io/dustjs/", "dust.compile",
+        function (txt) { /* global dust: true */ return dust.compile(txt); });
 
     /*  Jade (efficient: pre-compilation, complete: data support)  */
-    $.markup.register({
-        id:        "jade",
-        name:      "Jade",
-        url:       "http://jade-lang.com/",
-        available: function ()    { return isfn("jade.compile"); },
-        compile:   function (txt) { /* global jade: true */ return jade.compile(txt); }
-    });
+    reg("jade", "Jade", "http://jade-lang.com/", "jade.compile",
+        function (txt) { /* global jade: true */ return jade.compile(txt); });
 
     /*  Mustache (efficient: pre-compilation, complete: data support)  */
-    $.markup.register({
-        id:        "mustache",
-        name:      "Mustache",
-        url:       "http://mustache.github.io/",
-        available: function ()    { return isfn("Mustache.compile"); },
-        compile:   function (txt) { /* global Mustache: true */ return Mustache.compile(txt); }
-    });
+    reg("mustache", "Mustache", "http://mustache.github.io/", "Mustache.compile",
+        function (txt) { /* global Mustache: true */ return Mustache.compile(txt); });
 
     /*  HAML-JS (efficient: pre-compilation, complete: data support)  */
-    $.markup.register({
-        id:        "haml",
-        name:      "HAML-JS",
-        url:       "https://github.com/creationix/haml-js",
-        available: function ()    { return isfn("Haml"); },
-        compile:   function (txt) { /* global Haml: true */ return Haml(txt); }
-    });
+    reg("haml", "HAML-JS", "https://github.com/creationix/haml-js", "Haml",
+        function (txt) { /* global Haml: true */ return Haml(txt); });
 
     /*  doT (efficient: pre-compilation, complete: data support)  */
-    $.markup.register({
-        id:        "dot",
-        name:      "doT",
-        url:       "http://olado.github.io/doT/",
-        available: function ()    { return isfn("doT.template"); },
-        compile:   function (txt) { /* global doT: true */ return doT.template(txt); }
-    });
+    reg("dot", "doT", "http://olado.github.io/doT/", "doT.template",
+        function (txt) { /* global doT: true */ return doT.template(txt); });
 
     /*  Hogan (efficient: pre-compilation, complete: data support)  */
-    $.markup.register({
-        id:        "hogan",
-        name:      "Twitter Hogan",
-        url:       "http://twitter.github.io/hogan.js/",
-        available: function ()    { return isfn("hogan.compile"); },
-        compile:   function (txt) { /* global hogan: true */ var tmpl = hogan.compile(txt);
-                                    return function (data) { return tmpl.render(data); }; }
-    });
+    reg("hogan", "Twitter Hogan", "http://twitter.github.io/hogan.js/", "hogan.compile",
+        function (txt) { /* global hogan: true */ var tmpl = hogan.compile(txt);
+                         return function (data) { return tmpl.render(data); }; });
 
     /*  Underscore Template (efficient: pre-compilation, complete: data support)  */
-    $.markup.register({
-        id:        "underscore",
-        name:      "Underscore Template",
-        url:       "http://underscorejs.org/",
-        available: function ()    { return isfn("_.template"); },
-        compile:   function (txt) { /* global _: true */ return _.template(txt); }
-    });
+    reg("underscore", "Underscore Template", "http://underscorejs.org/", "_.template",
+        function (txt) { /* global _: true */ return _.template(txt); });
 
     /*  Qatrix Template (efficient: cached on-the-fly compilation, complete: data support)  */
-    $.markup.register({
-        id:        "qatrix",
-        name:      "Qatrix Template",
-        url:       "http://qatrix.com/",
-        available: function ()    { return isfn("Qatrix.$template"); },
-        compile:   function (txt) { return function (data) { /* global Qatrix: true */ return Qatrix.template(txt, data); }; }
-    });
+    reg("qatrix", "Qatrix Template", "http://qatrix.com/", "Qatrix.$template",
+        function (txt) { return function (data) { /* global Qatrix: true */ return Qatrix.template(txt, data); }; });
 
     /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
-    $.markup.register({
-        id:        "markup",
-        name:      "Markup.js",
-        url:       "https://github.com/adammark/Markup.js/",
-        available: function ()    { return isfn("Mark.up"); },
-        compile:   function (txt) { return function (data) { /* global Mark: true */ return Mark.up(txt, data); }; }
-    });
+    reg("markup", "Markup.js", "https://github.com/adammark/Markup.js/", "Mark.up",
+        function (txt) { return function (data) { /* global Mark: true */ return Mark.up(txt, data); }; });
 
     /*  Plates (inefficient: on-the-fly compilation, complete: data support)  */
-    $.markup.register({
-        id:        "plates",
-        name:      "Plates",
-        url:       "https://github.com/flatiron/plates",
-        available: function ()    { return isfn("Plates.bind"); },
-        compile:   function (txt) { return function (data) { /* global Plates: true */ return Plates.bind(txt, data); }; }
-    });
+    reg("plates", "Plates", "https://github.com/flatiron/plates", "Plates.bind",
+        function (txt) { return function (data) { /* global Plates: true */ return Plates.bind(txt, data); }; });
 
     /*  Emmet markup (inefficient: on-the-fly compilation, incomplete: no data support)  */
-    $.markup.register({
-        id:        "markup",
-        name:      "Markup.js",
-        url:       "http://emmet.io/",
-        available: function ()    { return isfn("emmet.expandAbbreviation"); },
-        compile:   function (txt) { return function (/* data */) { /* global emmet: true */ return emmet.expandAbbreviation(txt); }; }
-    });
+    reg("markup", "Markup.js", "http://emmet.io/", "emmet.expandAbbreviation",
+        function (txt) { return function (/* data */) { /* global emmet: true */ return emmet.expandAbbreviation(txt); }; });
 
 })(jQuery);
 
