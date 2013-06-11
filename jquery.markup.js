@@ -189,7 +189,9 @@
             var h = $(this).attr("href");
             var r = $(this).attr("rel");
             var t = $(this).attr("type");
-            if (h !== "" && r !== "" && t !== "") {
+            if (typeof h !== "undefined" && h !== "" &&
+                typeof r !== "undefined" && r !== "" &&
+                typeof t !== "undefined" && t !== ""   ) {
                 var mr = r.match(/^markup(?:\/([a-z]+))?$/);
                 var mt = t.match(/^text\/(?:html|x-markup-([a-z]+))$/);
                 if (mr !== null && mt !== null) {
