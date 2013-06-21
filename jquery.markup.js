@@ -50,7 +50,7 @@
     };
 
     /*  plugin version number  */
-    $.markup.version = "1.0.9";
+    $.markup.version = "1.0.10";
 
     /*  debug level  */
     $.markup.debug = 0;
@@ -252,6 +252,11 @@
     reg("mustache", "Mustache", "http://mustache.github.io/", "Mustache.compile",
         function (txt) { /* global Mustache: true */ return Mustache.compile(txt); });
 
+    /*  Walrus (efficient: pre-compilation, complete: data support)  */
+    reg("walrus", "Walrus", "http://documentup.com/jeremyruppel/walrus/", "Walrus.Parser.parse",
+        function (txt) { /* global Walrus: true */ var tmpl = Walrus.Parser.parse(txt);
+                         return function (data) { return tmpl.compile(data); }; });
+
     /*  HAML-JS (efficient: pre-compilation, complete: data support)  */
     reg("haml", "HAML-JS", "https://github.com/creationix/haml-js", "Haml",
         function (txt) { /* global Haml: true */ return Haml(txt); });
@@ -272,6 +277,11 @@
     /*  Qatrix Template (efficient: cached on-the-fly compilation, complete: data support)  */
     reg("qatrix", "Qatrix Template", "http://qatrix.com/", "Qatrix.$template",
         function (txt) { return function (data) { /* global Qatrix: true */ return Qatrix.template(txt, data); }; });
+
+    /*  Nunjucks (efficient: on-the-fly compilation, complete: data support)  */
+    reg("nunjucks", "Nunjucks", "http://nunjucks.jlongster.com/", "nunjucks.Template",
+        function (txt) { /* global nunjucks: true */ var tmpl = nunjucks.Template(txt);
+                         return function (data) { return tmpl.render(data); }; });
 
     /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
     reg("markup", "Markup.js", "https://github.com/adammark/Markup.js/", "Mark.up",
