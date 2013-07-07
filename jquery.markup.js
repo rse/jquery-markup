@@ -50,7 +50,7 @@
     };
 
     /*  plugin version number  */
-    $.markup.version = "1.0.10";
+    $.markup.version = "1.0.11";
 
     /*  debug level  */
     $.markup.debug = 0;
@@ -97,7 +97,9 @@
     };
 
     /*  parse a markup definition document  */
-    var parse = function (type, txt) {
+    $.markup.parse = function (txt, type) {
+        if (typeof type === "undefined")
+            type = "plain";
         debug(3, "parse: type=" + type + " txt=" + esctxt(txt));
         var section = [];
         section.push({ txt: "", attr: { id: "", type: type, include: "false" }});
@@ -173,7 +175,7 @@
             var type = todo[i].type;
             debug(2, "load: url=" + todo[i].url + " type=" + type);
             $.get(todo[i].url, function (txt) {
-                parse(type, txt);
+                $.markup.parse(txt, type);
                 done++;
                 if (done >= todo.length)
                     onDone();
