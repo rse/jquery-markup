@@ -25,9 +25,13 @@
 /*  the static jQuery API extension  */
 interface JQueryStatic {
     markup: {
-        (id: String, data?: Object): JQuery;
+        /*  global version number  */
         version: String;
+
+        /*  global debug level  */
         debug: Number;
+
+        /*  register a template engine  */
         register(spec: {
             id: String;
             name: String;
@@ -35,14 +39,24 @@ interface JQueryStatic {
             available: () => boolean;
             compile: (txt: String) => (data?: Object) => String;
         }): void;
+
+        /*  parse a manually loaded template file  */
         parse(txt: String, type?: String): void;
+
+        /*  manually queue the loading of particular template file  */
         queue(url: String, type?: String): void;
+
+        /*  load all queued template files  */
         load(onDone: () => void): void;
+
+        /*  render a particular markup template (DOM unattached)  */
+        (id: String, data?: Object): JQuery;
     };
 }
 
 /*  the dynamic jQuery result object API extension  */
 interface JQuery {
+    /*  render a particular markup template (DOM attached)  */
     markup(id: String, data?: Object): JQuery;
 }
 

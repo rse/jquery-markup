@@ -113,34 +113,37 @@ API
 ---
 
 The Application Programming Interface (API) of jQuery.Markup is
-(in concise TypeScript definition syntax):
+(in abbreviated TypeScript definition syntax):
 
     /*  global version number  */
-    $.markup.version: Float
+    $.markup.version: String;
 
     /*  global debug level  */
-    $.markup.debug: Number
+    $.markup.debug: Number;
 
-    /*  register a check for function existence  */
+    /*  register a template engine  */
     $.markup.register({
-        id: String,
-        name: String,
-        url: String,
-        available: () => Boolean,
-        compile: (txt: String) => ((data: Object) => String)
-    }): Void
+        id: String;
+        name: String;
+        url: String;
+        available: () => boolean;
+        compile: (txt: String) => (data?: Object) => String;
+    }): void;
+
+    /*  parse a manually loaded template file  */
+    $.markup.parse(txt: String, type?: String): void;
 
     /*  manually queue the loading of particular template file  */
-    $.markup.queue(url: String, type: String): Void
+    $.markup.queue(url: String, type?: String): void;
 
     /*  load all queued template files  */
-    $.markup.load(onDone: () => Void)
+    $.markup.load(onDone: () => void): void;
 
     /*  render a particular markup template (DOM unattached)  */
-    $.markup(id: String[, data: Object]): jQuery
+    $.markup(id: String, data?: Object): jQuery;
 
     /*  render a particular markup template (DOM attached)  */
-    $([...]).markup(id: String[, data: Object]): jQuery
+    $([...]).markup(id: String, data?: Object): jQuery;
 
 Templates
 ---------
