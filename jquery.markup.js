@@ -50,7 +50,7 @@
     };
 
     /*  plugin version number  */
-    $.markup.version = "1.0.12";
+    $.markup.version = "1.0.13";
 
     /*  debug level  */
     $.markup.debug = 0;
