@@ -151,7 +151,7 @@ Templates
 The template files can contain arbitrary HTML/XHTML markup, just surrounded
 with `<markup>` tags. Those tags have the following syntax:
 
-    <markup id="ID" [type="TYPE"] [include="true|false"]>
+    <markup id="ID" [type="TYPE"] [include="true|false"] [wrap="true|false"]>
         [...]
     </markup>
 
@@ -162,6 +162,10 @@ ones). The `include` attribute can be set to `true` for nested tags
 in order to allow their content to be included into the parent tag
 (by default nested tags are treated as they would be located at the
 top-level and are just nested for logical reasons only).
+The `wrap` attribute can be set to `true` for markups where
+an outer wrapping `<div>` element should be generated with
+a class derived from the effective markup id (a minus-seperated
+path of all markup `id`s, starting at the top-level).
 
 Template Engine Support
 -----------------------

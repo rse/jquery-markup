@@ -106,7 +106,7 @@
         var m;
         while (txt !== "") {
             /*  section opening tag  */
-            if ((m = txt.match(/^<markup((?:\s+(?:id|type|include)="[^"]*")+)\s*>/)) !== null) {
+            if ((m = txt.match(/^<markup((?:\s+(?:id|type|include|wrap)="[^"]*")+)\s*>/)) !== null) {
                 /*  parse key="value" attributes  */
                 debug(4, "parse: section opening tag: " + esctxt(m[0]));
                 var attr = {};
@@ -124,6 +124,8 @@
                     attr.type = section[section.length - 1].attr.type;
                 if (typeof attr.include === "undefined")
                     attr.include = false;
+                if (typeof attr.wrap === "undefined")
+                    attr.wrap = false;
 
                 /*  open new section  */
                 section.push({ txt: "", attr: attr });
@@ -135,6 +137,12 @@
                 /*  close current section  */
                 debug(4, "parse: section closing tag: " + esctxt(m[0]));
                 var s = section.pop();
+                if (s.attr.wrap) {
+                    /*  optionally wrap markup with a root element and
+                        a CSS class which is derived from the section id  */
+                    var clazz = s.attr.id.replace(/\//g, "-");
+                    s.txt = "<div class=\"" + clazz + "\">" + s.txt + "</div>";
+                }
                 compile(s.attr.type, s.attr.id, s.txt);
                 if (s.attr.include)
                     section[section.length - 1].txt += s.txt;
