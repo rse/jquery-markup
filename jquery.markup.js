@@ -106,7 +106,7 @@
         var m;
         while (txt !== "") {
             /*  section opening tag  */
-            if ((m = txt.match(/^<markup((?:\s+(?:id|type|include|wrap)="[^"]*")+)\s*>/)) !== null) {
+            if ((m = txt.match(/^<markup((?:\s+(?:id|type|include|wrap|trim)="[^"]*")+)\s*>/)) !== null) {
                 /*  parse key="value" attributes  */
                 debug(4, "parse: section opening tag: " + esctxt(m[0]));
                 var attr = {};
@@ -118,6 +118,8 @@
                 }
                 if (typeof attr.id === "undefined")
                     throw new Error("jquery: markup: ERROR: missing required 'id' attribute");
+                if (attr.id.match(/^[^\/]+$/) === null)
+                    throw new Error("jquery: markup: ERROR: invalid 'id' attribute");
                 if (section[section.length - 1].attr.id !== "")
                     attr.id = section[section.length - 1].attr.id + "/" + attr.id;
                 if (typeof attr.type === "undefined")
@@ -126,6 +128,8 @@
                     attr.include = false;
                 if (typeof attr.wrap === "undefined")
                     attr.wrap = false;
+                if (typeof attr.trim === "undefined")
+                    attr.trim = false;
 
                 /*  open new section  */
                 section.push({ txt: "", attr: attr });
@@ -140,8 +144,36 @@
                 if (s.attr.wrap) {
                     /*  optionally wrap markup with a root element and
                         a CSS class which is derived from the section id  */
-                    var clazz = s.attr.id.replace(/\//g, "-");
+                    var clazz = s.attr.id.replace(/\//g, "-").replace(/[^a-zA-Z0-9_-]/g, "_");
                     s.txt = "<div class=\"" + clazz + "\">" + s.txt + "</div>";
+                    debug(4, "post-process: wrapped markup: " + esctxt(s.txt));
+                }
+                if (s.attr.trim) {
+                    /*  optionally trim all whitespaces around tags  */
+                    var src = s.txt, dst = "", m3, i, matched;
+                    var spec = [
+                        /^\s*(<!--.+?-->)\s*/,
+                        /^\s*(<[a-zA-Z_][a-zA-Z0-9_:-]*(?:\s+[a-z]+="[^"]*")*\s*\/?\s*>)\s*/,
+                        /^\s*(<\/[a-zA-Z_][a-zA-Z0-9_:-]*\s*>)\s*/,
+                        /^([^\s<]+)/,
+                        /^(\s+)/
+                    ];
+                    while (src !== "") {
+                        matched = false;
+                        for (i = 0; i < spec.length; i++) {
+                            if ((m3 = src.match(spec[i])) !== null) {
+                                dst += m3[1];
+                                src = src.substr(m3[0].length);
+                                matched = true;
+                                break;
+                            }
+                        }
+                        if (!matched)
+                            throw new Error("jquery: markup: ERROR: during markup trimming: " +
+                                "unrecognized next token at " + esctxt(src));
+                    }
+                    s.txt = dst;
+                    debug(4, "post-process: trimmed markup: " + esctxt(s.txt));
                 }
                 compile(s.attr.type, s.attr.id, s.txt);
                 if (s.attr.include)

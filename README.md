@@ -151,7 +151,7 @@ Templates
 The template files can contain arbitrary HTML/XHTML markup, just surrounded
 with `<markup>` tags. Those tags have the following syntax:
 
-    <markup id="ID" [type="TYPE"] [include="true|false"] [wrap="true|false"]>
+    <markup id="ID" [type="TYPE"] [include="true|false"] [wrap="true|false"] [trim="true|false"]>
         [...]
     </markup>
 
@@ -166,6 +166,9 @@ The `wrap` attribute can be set to `true` for markups where
 an outer wrapping `<div>` element should be generated with
 a class derived from the effective markup id (a minus-seperated
 path of all markup `id`s, starting at the top-level).
+The `trim` attribute can be set to `true` for markups where
+whitespaces around HTML tags should be trimmed in order
+to avoid a pollution of the DOM with nasty plain-text elements.
 
 Template Engine Support
 -----------------------
