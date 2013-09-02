@@ -307,6 +307,10 @@
     reg("dot", "doT", "http://olado.github.io/doT/", "doT.template",
         function (txt) { /* global doT: true */ return doT.template(txt); });
 
+    /*  rssi (efficient: pre-compilation, complete: data support)  */
+    reg("rssi", "rssi", "https://github.com/mvasilkov/rssi", "fmt",
+        function (txt) { /* global fmt: true */ return fmt(txt); });
+
     /*  Hogan (efficient: pre-compilation, complete: data support)  */
     reg("hogan", "Twitter Hogan", "http://twitter.github.io/hogan.js/", "hogan.compile",
         function (txt) { /* global hogan: true */ var tmpl = hogan.compile(txt);

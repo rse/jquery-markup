@@ -185,6 +185,7 @@ expansion engines are supported out-of-the-box:
 - `walrus`: [Walrus](http://documentup.com/jeremyruppel/walrus/) (efficient: pre-compilation)
 - `haml`: [HAML-JS](https://github.com/creationix/haml-js) (efficient: pre-compilation)
 - `dot`: [doT](http://olado.github.io/doT/) (efficient: pre-compilation)
+- `rssi`: [rssi](https://github.com/mvasilkov/rssi) (efficient: pre-compilation)
 - `hogan`: [Twitter Hogan](http://twitter.github.io/hogan.js/) (efficient: pre-compilation)
 - `underscore`: [Underscore](http://underscorejs.org/) (efficient: pre-compilation)
 - `qatrix`: [Qatrix Template](http://qatrix.com/) (efficient: cached on-the-fly compilation)
@@ -206,6 +207,7 @@ For supporting an additional template engine use a construct like the following:
 
 Check out [Template-Engine-Chooser](http://garann.github.io/template-chooser/)
 to quickly find out which template language fits best for your scenario.
+My personal preference is to use [Handlebars](http://handlebarsjs.com/).
 
 Building jQuery-Markup
 ----------------------
