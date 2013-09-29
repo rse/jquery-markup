@@ -259,6 +259,17 @@
         return true;
     };
 
+    /*  helper function for simple templating  */
+    var simple = function (template) {
+        /* jshint -W054 */
+        return new Function("data",
+            "return \"" + template.replace(/"/g, "\\\"").replace(/\r/g, "\\r").replace(/\n/g, "\\n").replace(
+                /\{\{([a-zA-Z_][a-zA-Z0-9_-]*)\}\}/g,
+                "\" + (typeof data[\"$1\"] !== \"undefined\" ? data[\"$1\"] : \"(undefined)\") + \""
+            ) + "\";"
+        );
+    };
+
     /*  helper function for registering a template engine  */
     var reg = function (id, name, url, func, comp) {
         $.markup.register({
@@ -273,6 +284,10 @@
     /*  Plain HTML (efficient: pass-through only, incomplete: no data)  */
     reg("plain", "Plain HTML", "-", function () { return true; },
         function (txt) { return function (/* data */) { return txt; }; });
+
+    /*  Simple HTML (efficient: pre-compilation, complete: data support)  */
+    reg("simple", "Simple HTML", "-", function () { return true; },
+        function (txt) { return simple(txt); });
 
     /*  Handlebars (efficient: pre-compilation, complete: data support)  */
     reg("handlebars", "Handlebars", "http://handlebarsjs.com/", "Handlebars.compile",
