@@ -189,6 +189,7 @@ expansion engines are supported out-of-the-box:
 - `hogan`: [Twitter Hogan](http://twitter.github.io/hogan.js/) (efficient: pre-compilation)
 - `underscore`: [Underscore](http://underscorejs.org/) (efficient: pre-compilation)
 - `qatrix`: [Qatrix Template](http://qatrix.com/) (efficient: cached on-the-fly compilation)
+- `teddy`: [Teddy](https://github.com/kethinov/teddy) (efficient: pre-compilation)
 - `nunjucks`: [Nunjucks](http://nunjucks.jlongster.com/) (efficient: pre-compilation)
 - `markup`: [Markup](https://github.com/adammark/Markup.js/) (inefficient: on-the-fly compilation)
 - `plates`: [Plates](https://github.com/flatiron/plates) (inefficient: on-the-fly compilation)

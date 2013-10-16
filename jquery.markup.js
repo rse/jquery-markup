@@ -50,7 +50,7 @@
     };
 
     /*  plugin version number  */
-    $.markup.version = "1.0.16";
+    $.markup.version = "1.0.17";
 
     /*  debug level  */
     $.markup.debug = 0;
@@ -338,6 +338,11 @@
     /*  Qatrix Template (efficient: cached on-the-fly compilation, complete: data support)  */
     reg("qatrix", "Qatrix Template", "http://qatrix.com/", "Qatrix.$template",
         function (txt) { return function (data) { /* global Qatrix: true */ return Qatrix.template(txt, data); }; });
+
+    /*  Teddy (efficient: pre-compilation, complete: data support)  */
+    reg("teddy", "Teddy", "https://github.com/kethinov/teddy", "teddy.compile",
+        function (txt) { /* global teddy: true */ var name = txt /* hack */; teddy.compile(txt, name);
+                         return function (data) { return teddy.render(teddy.compiledTemplates[name], data); }; });
 
     /*  Nunjucks (efficient: on-the-fly compilation, complete: data support)  */
     reg("nunjucks", "Nunjucks", "http://nunjucks.jlongster.com/", "nunjucks.Template",

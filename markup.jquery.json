@@ -2,7 +2,7 @@
     "name": "markup",
     "title": "jQuery Markup",
     "description": "jQuery Markup is a jQuery plugin for assembling, pre-compiling, expanding and then DOM-injecting HTML markup code fragments based on plain HTML or an arbitrary template language.  jQuery plugin for Template based Markup generation.",
-    "version": "1.0.16",
+    "version": "1.0.17",
     "author": {
         "name": "Ralf S. Engelschall",
         "email": "rse@engelschall.com",
@@ -25,6 +25,6 @@
     ],
     "homepage": "https://github.com/rse/jquery-markup",
     "docs":     "https://github.com/rse/jquery-markup",
-    "download": "https://raw.github.com/rse/jquery-markup/1.0.16/jquery.markup.js",
+    "download": "https://raw.github.com/rse/jquery-markup/1.0.17/jquery.markup.js",
     "bugs":     "https://github.com/rse/jquery-markup/issues"
 }
