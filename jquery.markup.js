@@ -216,7 +216,7 @@
             debug(2, "load: url=" + todo[i].url + " type=" + type);
             $.get(todo[i].url, function (txt) {
                 $.markup.parse(txt, type);
-                done++;
+                done += 1;
                 if (done >= todo.length)
                     onDone();
             });
