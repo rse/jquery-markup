@@ -30,8 +30,14 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: "jshint.json"
             },
-            gruntfile:   [ "Gruntfile.js" ],
-            sourcefiles: [ "jquery.markup.js" ]
+            gruntfile: [ "Gruntfile.js" ],
+            "src": [ "jquery.markup.js" ]
+        },
+        eslint: {
+            options: {
+                config: "eslint.json"
+            },
+            target: [ "jquery.markup.js" ],
         },
         uglify: {
             options: {
@@ -52,7 +58,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-eslint");
 
-    grunt.registerTask("default", [ "jshint", "uglify" ]);
+    grunt.registerTask("default", [ "jshint", "eslint", "uglify" ]);
 };
 
