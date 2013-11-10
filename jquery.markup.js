@@ -298,7 +298,7 @@
         function (txt) { /* global Emblem: true */ return Emblem.compile(Handlebars, txt); });
 
     /*  DUST (efficient: pre-compilation, complete: data support)  */
-    reg("dust", "DUST", "http://akdubya.github.io/dustjs/", "dust.compile",
+    reg("dust", "DUST", "http://linkedin.github.io/dustjs/", "dust.compile",
         function (txt) { /* global dust: true */ return dust.compile(txt); });
 
     /*  Jade (efficient: pre-compilation, complete: data support)  */
