@@ -344,6 +344,16 @@
         function (txt) { /* global teddy: true */ var name = txt /* hack */; teddy.compile(txt, name);
                          return function (data) { return teddy.render(teddy.compiledTemplates[name], data); }; });
 
+    /*  EJS (efficient: pre-compilation, complete: data support)  */
+    reg("ejs", "EJS", "http://embeddedjs.com/", "EJS",
+        function (txt) { /* global EJS: true */ var tmpl = EJS({ text: txt });
+                         return function (data) { return tmpl.render(data); }; });
+
+    /*  JST (efficient: pre-compilation, complete: data support)  */
+    reg("jst", "JST", "http://code.google.com/p/trimpath/wiki/JavaScriptTemplates", "TrimPath.parseTemplate",
+        function (txt) { /* global TrimPath: true */ var tmpl = TrimPath.parseTemplate(txt);
+                         return function (data) { return tmpl.process(data); }; });
+
     /*  Nunjucks (efficient: on-the-fly compilation, complete: data support)  */
     reg("nunjucks", "Nunjucks", "http://nunjucks.jlongster.com/", "nunjucks.Template",
         function (txt) { /* global nunjucks: true */ var tmpl = nunjucks.Template(txt);
