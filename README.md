@@ -219,15 +219,15 @@ You can conveniently get jQuery-Markup in various ways:
 
 - Git: directly clone the official jQuery-Markup repository
 
-    $ git clone https://github.com/rse/jquery-markup.git
+      $ git clone https://github.com/rse/jquery-markup.git
 
 - Bower: install as client component via the Bower component manager:
 
-    $ bower install jquery-markup
+      $ bower install jquery-markup
 
 - cURL: downloading only the main file from the repository
 
-    $ curl -O https://raw.github.com/rse/jquery-markup/master/jquery.markup.js
+      $ curl -O https://raw.github.com/rse/jquery-markup/master/jquery.markup.js
 
 Building jQuery-Markup
 ----------------------
