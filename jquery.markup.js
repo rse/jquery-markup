@@ -356,7 +356,7 @@
 
     /*  Nunjucks (efficient: on-the-fly compilation, complete: data support)  */
     reg("nunjucks", "Nunjucks", "http://nunjucks.jlongster.com/", "nunjucks.Template",
-        function (txt) { /* global nunjucks: true */ var tmpl = nunjucks.Template(txt);
+        function (txt) { /* global nunjucks: true */ var tmpl = new nunjucks.Template(txt);
                          return function (data) { return tmpl.render(data); }; });
 
     /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
