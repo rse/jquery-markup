@@ -186,8 +186,9 @@ expansion engines are provided out-of-the-box:
   structured variable references like `{{foo.bar[42].quux}}`.
   This often is sufficient in practice.
 
-The following external HTML template languages and corresponding
-expansion engines are supported out-of-the-box, too:
+For more sophisticated features, the following external HTML
+template languages and corresponding expansion engines are supported
+out-of-the-box, too:
 
 - `handlebars`: [Handlebars](http://handlebarsjs.com/) (efficient: pre-compilation)
 - `nunjucks`: [Nunjucks](http://nunjucks.jlongster.com/) (efficient: pre-compilation)
