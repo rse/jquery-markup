@@ -178,6 +178,7 @@ expansion engines are supported out-of-the-box:
 
 - `plain`: Plain-Text markup (efficient: pass-through)
 - `handlebars`: [Handlebars](http://handlebarsjs.com/) (efficient: pre-compilation)
+- `nunjucks`: [Nunjucks](http://nunjucks.jlongster.com/) (efficient: pre-compilation)
 - `emblem`: [Emblem](http://emblemjs.com/) (efficient: pre-compilation)
 - `dust`: [DUST](http://linkedin.github.io/dustjs/) (efficient: pre-compilation)
 - `jade`: [Jade](http://jade-lang.com/) (efficient: pre-compilation)
@@ -192,7 +193,6 @@ expansion engines are supported out-of-the-box:
 - `teddy`: [Teddy](https://github.com/kethinov/teddy) (efficient: pre-compilation)
 - `ejs`: [EJS](http://embeddedjs.com/) (efficient: pre-compilation)
 - `jst`: [JST](http://code.google.com/p/trimpath/wiki/JavaScriptTemplates) (efficient: pre-compilation)
-- `nunjucks`: [Nunjucks](http://nunjucks.jlongster.com/) (efficient: pre-compilation)
 - `markup`: [Markup](https://github.com/adammark/Markup.js/) (inefficient: on-the-fly compilation)
 - `plates`: [Plates](https://github.com/flatiron/plates) (inefficient: on-the-fly compilation)
 - `emmet`: [Emmet](http://emmet.io) (inefficient: on-the-fly compilation)
@@ -210,7 +210,9 @@ For supporting an additional template engine use a construct like the following:
 
 Check out [Template-Engine-Chooser](http://garann.github.io/template-chooser/)
 to quickly find out which template language fits best for your scenario.
-My personal preference is to use [Handlebars](http://handlebarsjs.com/).
+My personal preference is to use [Handlebars](http://handlebarsjs.com/) for
+simple requirements and [Nunjucks](http://nunjucks.jlongster.com/) for
+more complex requirements.
 
 Getting jQuery-Markup
 ---------------------
