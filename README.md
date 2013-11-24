@@ -223,8 +223,9 @@ For supporting an additional external template engine use a construct like the f
 
 Check out [Template-Engine-Chooser](http://garann.github.io/template-chooser/)
 to quickly find out which template language fits best for your scenario.
-My personal preference is to use [Handlebars](http://handlebarsjs.com/) for
-simple requirements and [Nunjucks](http://nunjucks.jlongster.com/) for
+My personal preference is to use the built-in Simple language for
+simple requirements, [Handlebars](http://handlebarsjs.com/) for
+average requirements and [Nunjucks](http://nunjucks.jlongster.com/) for
 more complex requirements.
 
 Getting jQuery-Markup
