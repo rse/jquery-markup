@@ -173,10 +173,22 @@ to avoid a pollution of the DOM with nasty plain-text elements.
 Template Engine Support
 -----------------------
 
-The following HTML template languages and corresponding
-expansion engines are supported out-of-the-box:
+The following built-in HTML template languages and corresponding
+expansion engines are provided out-of-the-box:
 
-- `plain`: Plain-Text markup (efficient: pass-through)
+- `plain`: Plain-Text markup (efficient: pass-through)<br/>
+  This expands nothing, it just passes through the markup code, without
+  performing any expansions at all. Usually too less useful in practice, but
+  sometimes sufficient enough. It is the default language.
+
+- `simple`: Simple markup (efficient: pre-compilation)<br/>
+  This expands simple variable references like `{{foo}}` and
+  structured variable references like `{{foo.bar[42].quux}}`.
+  This often is sufficient in practice.
+
+The following external HTML template languages and corresponding
+expansion engines are supported out-of-the-box, too:
+
 - `handlebars`: [Handlebars](http://handlebarsjs.com/) (efficient: pre-compilation)
 - `nunjucks`: [Nunjucks](http://nunjucks.jlongster.com/) (efficient: pre-compilation)
 - `emblem`: [Emblem](http://emblemjs.com/) (efficient: pre-compilation)
@@ -197,7 +209,7 @@ expansion engines are supported out-of-the-box:
 - `plates`: [Plates](https://github.com/flatiron/plates) (inefficient: on-the-fly compilation)
 - `emmet`: [Emmet](http://emmet.io) (inefficient: on-the-fly compilation)
 
-For supporting an additional template engine use a construct like the following:
+For supporting an additional external template engine use a construct like the following:
 
     $.markup.register({
         id:        "handlebars",

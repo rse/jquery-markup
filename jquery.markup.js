@@ -259,14 +259,64 @@
         return true;
     };
 
-    /*  helper function for simple templating  */
-    var simple = function (template) {
+    /*  helper function for simple templating (structured value derefering only)  */
+    var simple = function (txt) {
+        var func = "";
+        var outside = true;
+        var expr, m;
+        while (txt !== "") {
+            if (outside && txt.substr(0, 1) === "\"") {
+                func += "\\\"";
+                txt = txt.substr(1);
+            }
+            else if (outside && (m = txt.match(/^[\r\n]/)) !== null) {
+                func += "\\" + (m[0] === "\r" ? "r" : "n");
+                txt = txt.substr(m[0].length);
+            }
+            else if (outside && txt.substr(0, 2) === "{{") {
+                outside = false;
+                expr = "data";
+                txt = txt.substr(2);
+            }
+            else if (!outside && (m = txt.match(/^\s+/)) !== null) {
+                txt = txt.substr(m[0].length);
+            }
+            else if (!outside && (m = txt.match(/^(?:\.)?([a-zA-Z_][a-zA-Z0-9_]*)/)) !== null) {
+                expr = "deref(" + expr + ", \"" + m[1] + "\")";
+                txt = txt.substr(m[0].length);
+            }
+            else if (!outside && (m = txt.match(/^\[(\d+)\]/)) !== null) {
+                expr = "deref(" + expr + ", " + m[1] + ")";
+                txt = txt.substr(m[0].length);
+            }
+            else if (!outside && (m = txt.match(/^\["((?:\\"|.)*)"\]/)) !== null) {
+                expr = "deref(" + expr + ", \"" + m[1] + "\")";
+                txt = txt.substr(m[0].length);
+            }
+            else if (!outside && (m = txt.match(/^\['((?:\\'|.)*)'\]/)) !== null) {
+                expr = "deref(" + expr + ", '" + m[1] + "')";
+                txt = txt.substr(m[0].length);
+            }
+            else if (!outside && txt.substr(0, 2) === "}}") {
+                func += "\" + " + expr + " + \"";
+                outside = true;
+                txt = txt.substr(2);
+            }
+            else if (outside && (m = txt.match(/^(.+?)(?=\r|\n|"|\{\{|$)/)) !== null) {
+                func += m[1];
+                txt = txt.substr(m[0].length);
+            }
+            else {
+                func += txt.substr(0, 1);
+                txt = txt.substr(1);
+            }
+        }
         /* jshint -W054 */
         return new Function("data",
-            "return \"" + template.replace(/"/g, "\\\"").replace(/\r/g, "\\r").replace(/\n/g, "\\n").replace(
-                /\{\{([a-zA-Z_][a-zA-Z0-9_-]*)\}\}/g,
-                "\" + (typeof data[\"$1\"] !== \"undefined\" ? data[\"$1\"] : \"(undefined)\") + \""
-            ) + "\";"
+            "var deref = function (obj, sel) {" +
+                "return (typeof obj === \"object\" ? obj[sel] : undefined);" +
+            "};" +
+            "return \"" + func + "\";"
         );
     };
 
