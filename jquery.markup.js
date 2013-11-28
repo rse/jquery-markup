@@ -385,6 +385,10 @@
     reg("underscore", "Underscore Template", "http://underscorejs.org/", "_.template",
         function (txt) { /* global _: true */ return _.template(txt); });
 
+    /*  Jiko (efficient: on-the-fly compilation, complete: data support)  */
+    reg("jiko", "Jiko", "http://jiko.neoname.eu/", "jiko.loadTemplate",
+        function (txt) { /* global jiko: true */ return jiko.loadTemplate(txt); });
+
     /*  Qatrix Template (efficient: cached on-the-fly compilation, complete: data support)  */
     reg("qatrix", "Qatrix Template", "http://qatrix.com/", "Qatrix.$template",
         function (txt) { return function (data) { /* global Qatrix: true */ return Qatrix.template(txt, data); }; });

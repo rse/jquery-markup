@@ -202,6 +202,7 @@ out-of-the-box, too:
 - `rssi`: [rssi](https://github.com/mvasilkov/rssi) (efficient: pre-compilation)
 - `hogan`: [Twitter Hogan](http://twitter.github.io/hogan.js/) (efficient: pre-compilation)
 - `underscore`: [Underscore](http://underscorejs.org/) (efficient: pre-compilation)
+- `jiko`: [Jiko](http://jiko.neoname.eu/) (efficient: pre-compilation)
 - `qatrix`: [Qatrix Template](http://qatrix.com/) (efficient: cached on-the-fly compilation)
 - `teddy`: [Teddy](https://github.com/kethinov/teddy) (efficient: pre-compilation)
 - `ejs`: [EJS](http://embeddedjs.com/) (efficient: pre-compilation)
