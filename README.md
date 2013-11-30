@@ -130,6 +130,9 @@ The Application Programming Interface (API) of jQuery.Markup is
         compile: (txt: String) => (data?: Object) => String;
     }): void;
 
+    /*  compile and store a template fragment  */
+    $.markup.compile(type: String, id: String, txt: String): void;
+
     /*  parse a manually loaded template file  */
     $.markup.parse(txt: String, type?: String): void;
 
@@ -139,11 +142,20 @@ The Application Programming Interface (API) of jQuery.Markup is
     /*  load all queued template files  */
     $.markup.load(onDone: () => void): void;
 
+    /*  render a particular markup template (into unparsed/textual format)  */
+    $.markup.render(id: String, data: Object): String;
+
     /*  render a particular markup template (DOM unattached)  */
     $.markup(id: String, data?: Object): jQuery;
 
     /*  render a particular markup template (DOM attached)  */
     $([...]).markup(id: String, data?: Object): jQuery;
+
+In practice you usually need only the `$.markup.load()` function for
+loading all your markup templates once on startup and the `$.markup()`
+function for rendering a particular markup template into a DOM fragment.
+All other functions are just the exposed lower-level functionality and
+are usually directly used in rare situations only.
 
 Templates
 ---------

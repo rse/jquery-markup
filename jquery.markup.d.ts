@@ -40,6 +40,9 @@ interface JQueryStatic {
             compile: (txt: String) => (data?: Object) => String;
         }): void;
 
+        /*  compile and store a template fragment  */
+        compile(type: String, id: String, txt: String): void;
+
         /*  parse a manually loaded template file  */
         parse(txt: String, type?: String): void;
 
@@ -48,6 +51,9 @@ interface JQueryStatic {
 
         /*  load all queued template files  */
         load(onDone: () => void): void;
+
+        /*  render a particular markup template (into unparsed/textual format)  */
+        render(id: String, data: Object): String;
 
         /*  render a particular markup template (DOM unattached)  */
         (id: String, data?: Object): JQuery;
