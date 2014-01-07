@@ -405,6 +405,10 @@
         function (txt) { /* global teddy: true */ var name = txt /* hack */; teddy.compile(txt, name);
                          return function (data) { return teddy.render(teddy.compiledTemplates[name], data); }; });
 
+    /*  Swig (efficient: pre-compilation, complete: data support)  */
+    reg("swig", "Swig", "http://paularmstrong.github.io/swig/", "swig.compile",
+        function (txt) { /* global swig: true */ return swig.compile(txt); });
+
     /*  EJS (efficient: pre-compilation, complete: data support)  */
     reg("ejs", "EJS", "http://embeddedjs.com/", "EJS",
         function (txt) { /* global EJS: true */ var tmpl = EJS({ text: txt });

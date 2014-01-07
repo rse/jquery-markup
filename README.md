@@ -217,6 +217,7 @@ out-of-the-box, too:
 - `jiko`: [Jiko](http://jiko.neoname.eu/) (efficient: pre-compilation)
 - `qatrix`: [Qatrix Template](http://qatrix.com/) (efficient: cached on-the-fly compilation)
 - `teddy`: [Teddy](https://github.com/kethinov/teddy) (efficient: pre-compilation)
+- `swig`: [Swig](http://paularmstrong.github.io/swig/) (efficient: pre-compilation)
 - `ejs`: [EJS](http://embeddedjs.com/) (efficient: pre-compilation)
 - `jst`: [JST](http://code.google.com/p/trimpath/wiki/JavaScriptTemplates) (efficient: pre-compilation)
 - `markup`: [Markup](https://github.com/adammark/Markup.js/) (inefficient: on-the-fly compilation)
