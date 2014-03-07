@@ -22,6 +22,9 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*  this is intended to extend the following jQuery TypeScript definition:
+    https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery/jquery.d.ts  */
+
 /*  the static jQuery API extension  */
 interface JQueryStatic {
     markup: {
