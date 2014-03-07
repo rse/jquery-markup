@@ -220,6 +220,7 @@ out-of-the-box, too:
 - `swig`: [Swig](http://paularmstrong.github.io/swig/) (efficient: pre-compilation)
 - `ejs`: [EJS](http://embeddedjs.com/) (efficient: pre-compilation)
 - `jst`: [JST](http://code.google.com/p/trimpath/wiki/JavaScriptTemplates) (efficient: pre-compilation)
+- `jsrender`: [JsRender](http://www.jsviews.com/#jsrender) (efficient: pre-compilation)
 - `markup`: [Markup](https://github.com/adammark/Markup.js/) (inefficient: on-the-fly compilation)
 - `plates`: [Plates](https://github.com/flatiron/plates) (inefficient: on-the-fly compilation)
 - `emmet`: [Emmet](http://emmet.io) (inefficient: on-the-fly compilation)

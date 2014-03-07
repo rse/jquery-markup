@@ -424,6 +424,11 @@
         function (txt) { /* global nunjucks: true */ var tmpl = new nunjucks.Template(txt);
                          return function (data) { return tmpl.render(data); }; });
 
+    /*  JsRender (efficient: on-the-fly compilation, complete: data support)  */
+    reg("jsrender", "JsRender", "http://www.jsviews.com/#jsrender", "$.templates",
+        function (txt) { /* global $: true */ var tmpl = $.templates(txt);
+                         return function (data) { return tmpl.render(data); }; });
+
     /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
     reg("markup", "Markup.js", "https://github.com/adammark/Markup.js/", "Mark.up",
         function (txt) { return function (data) { /* global Mark: true */ return Mark.up(txt, data); }; });
