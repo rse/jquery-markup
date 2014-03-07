@@ -426,8 +426,7 @@
 
     /*  JsRender (efficient: on-the-fly compilation, complete: data support)  */
     reg("jsrender", "JsRender", "http://www.jsviews.com/#jsrender", "$.templates",
-        function (txt) { /* global $: true */ var tmpl = $.templates(txt);
-                         return function (data) { return tmpl.render(data); }; });
+        function (txt) { var tmpl = $.templates(txt); return function (data) { return tmpl.render(data); }; });
 
     /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
     reg("markup", "Markup.js", "https://github.com/adammark/Markup.js/", "Mark.up",
