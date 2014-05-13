@@ -428,6 +428,10 @@
     reg("jsrender", "JsRender", "http://www.jsviews.com/#jsrender", "$.templates",
         function (txt) { var tmpl = $.templates(txt); return function (data) { return tmpl.render(data); }; });
 
+    /*  Combyne (efficient: on-the-fly compilation, complete: data support)  */
+    reg("combyne", "Combyne", "https://github.com/tbranyen/combyne", "combyne",
+        function (txt) { var tmpl = combine(txt); return function (data) { return tmpl.render(data); }; });
+
     /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
     reg("markup", "Markup.js", "https://github.com/adammark/Markup.js/", "Mark.up",
         function (txt) { return function (data) { /* global Mark: true */ return Mark.up(txt, data); }; });
