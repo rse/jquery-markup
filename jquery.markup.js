@@ -50,7 +50,7 @@
     };
 
     /*  plugin version number  */
-    $.markup.version = "1.0.30";
+    $.markup.version = "1.0.31";
 
     /*  debug level  */
     $.markup.debug = 0;
@@ -430,7 +430,8 @@
 
     /*  Combyne (efficient: on-the-fly compilation, complete: data support)  */
     reg("combyne", "Combyne", "https://github.com/tbranyen/combyne", "combyne",
-        function (txt) { var tmpl = combine(txt); return function (data) { return tmpl.render(data); }; });
+        function (txt) { /* global combyne: true */ var tmpl = combyne(txt);
+                         return function (data) { return tmpl.render(data); }; });
 
     /*  Markup.js (inefficient: on-the-fly compilation, complete: data support)  */
     reg("markup", "Markup.js", "https://github.com/adammark/Markup.js/", "Mark.up",
