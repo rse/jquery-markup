@@ -29,7 +29,7 @@
     /*  the storage of all markup expansion functions  */
     var markup = {};
 
-    /*  local context-sensitive markup-expansion API function  */
+    /*  the local context-sensitive markup-expansion API function  */
     $.fn.extend({
         markup: function (id, data) {
             var result = this;
@@ -42,7 +42,7 @@
         }
     });
 
-    /*  global context-free markup-expansion API function  */
+    /*  the global context-free markup-expansion API function  */
     $.markup = function (id, data) {
         if (typeof markup[id] === "undefined")
             throw new Error("jquery: markup: ERROR: no such markup with id '" + id + "' found");
