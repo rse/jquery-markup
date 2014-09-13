@@ -222,6 +222,7 @@ out-of-the-box, too:
 - `jst`: [JST](http://code.google.com/p/trimpath/wiki/JavaScriptTemplates) (efficient: pre-compilation)
 - `jsrender`: [JsRender](http://www.jsviews.com/#jsrender) (efficient: pre-compilation)
 - `combyne`: [Combyne](https://github.com/tbranyen/combyne) (efficient: pre-compilation)
+- `kata`: [Kata](https://smcmurray.github.io/kata/) (efficient: pre-compilation)
 - `markup`: [Markup](https://github.com/adammark/Markup.js/) (inefficient: on-the-fly compilation)
 - `plates`: [Plates](https://github.com/flatiron/plates) (inefficient: on-the-fly compilation)
 - `emmet`: [Emmet](http://emmet.io) (inefficient: on-the-fly compilation)

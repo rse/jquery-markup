@@ -424,6 +424,10 @@
         function (txt) { /* global nunjucks: true */ var tmpl = new nunjucks.Template(txt);
                          return function (data) { return tmpl.render(data); }; });
 
+    /*  Kata (efficient: on-the-fly compilation, complete: data support)  */
+    reg("kata", "Kata", "https://smcmurray.github.io/kata/", "kata.compile",
+        function (txt) { /* global kata: true */ return kata.compile(txt); });
+
     /*  JsRender (efficient: on-the-fly compilation, complete: data support)  */
     reg("jsrender", "JsRender", "http://www.jsviews.com/#jsrender", "$.templates",
         function (txt) { var tmpl = $.templates(txt); return function (data) { return tmpl.render(data); }; });
