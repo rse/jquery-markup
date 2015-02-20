@@ -255,6 +255,10 @@ You can conveniently get jQuery-Markup in various ways:
 
   `$ git clone https://github.com/rse/jquery-markup.git`
 
+- NPM: install as client component via the NPM package manager:
+
+  `$ npm install jquery-markup`
+
 - Bower: install as client component via the Bower component manager:
 
   `$ bower install jquery-markup`
