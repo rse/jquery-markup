@@ -239,6 +239,7 @@ For supporting an additional external template engine use a construct like the f
     });
 
 Check out [Template-Engine-Chooser](http://garann.github.io/template-chooser/)
+and ["What are the best JavaScript templating engines?"](http://www.slant.co/topics/51/~what-are-the-best-javascript-templating-engines)
 to quickly find out which template language fits best for your scenario.
 My personal preference is to use the built-in Simple language for
 simple requirements, [Handlebars](http://handlebarsjs.com/) for
