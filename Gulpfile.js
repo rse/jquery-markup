@@ -41,7 +41,7 @@ gulp.task("eslint", function() {
 
 gulp.task("uglify", function() {
     gulp.src("jquery.markup.js")
-        .pipe(uglify({ preserveComments: "some" }))
+        .pipe(uglify({ preserveComments: false }))
         .pipe(rename("jquery.markup.min.js"))
         .pipe(gulp.dest("."));
 });
