@@ -36,7 +36,7 @@ gulp.task("jshint", function() {
 
 gulp.task("eslint", function() {
     gulp.src("jquery.markup.js")
-        .pipe(eslint({ config: "eslint.json" }))
+        .pipe(eslint({ configFile: "eslint.json" }))
 });
 
 gulp.task("uglify", function() {
